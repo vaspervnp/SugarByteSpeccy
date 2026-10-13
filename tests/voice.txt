@@ -1,0 +1,35 @@
+; Η φωνή (voice.asm): το say τελειώνει και αφήνει τον ήχο στη μουσική,
+; και το παιχνίδι συνεχίζει (48K: ο beeper, 128K: ο AY).
+run 1
+expect speaking 0
+until state 0 fire 100     ; από το μενού: PLAY
+run 20
+psgon 8
+
+; Sugar Crush: «Sugar Crush!» και μετά ό,τι γινόταν
+setboard 01234404 23450123 45012345 01234501 23450123 45012345 01034501 00150123
+poke lv_goal 0
+poke lv_star1 0                ; αστέρια 3.000 / 5.000 / 8.000, ανεξάρτητα από τη ρύθμιση
+poke lv_star1+1 #30
+poke lv_star2 0
+poke lv_star3 0
+poke lv_star2+1 #50
+poke lv_star3+1 #80
+poke score+1 #30
+poke moves 2
+run 20
+poke cursor 50
+run 1 fire
+run 1
+run 1 down
+run 1
+run 1 fire
+until state 11 - 600
+run 2
+expect speaking 0
+until state 7 - 900
+
+; BREAK: πίσω στο μενού
+run 1 esc
+run 3
+expect state 9

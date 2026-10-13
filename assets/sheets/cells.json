@@ -1,0 +1,2 @@
+{"name": "cells", "w": 24, "h": 24, "frames": 10, "columns": 5,
+ "tags": [{"name": "board", "from": 0, "to": 2}, {"name": "jelly", "from": 3, "to": 4}, {"name": "icing", "from": 5, "to": 7}, {"name": "blocker", "from": 8, "to": 9}]}

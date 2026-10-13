@@ -1,0 +1,2 @@
+{"name": "overlay", "w": 24, "h": 24, "frames": 14, "columns": 7,
+ "tags": [{"name": "cursor", "from": 0, "to": 1}, {"name": "blocker", "from": 2, "to": 3}, {"name": "pop", "from": 4, "to": 7}, {"name": "beam_h", "from": 8, "to": 9}, {"name": "beam_v", "from": 10, "to": 11}, {"name": "star", "from": 12, "to": 13}]}

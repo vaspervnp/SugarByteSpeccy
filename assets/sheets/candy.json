@@ -1,0 +1,2 @@
+{"name": "candy", "w": 24, "h": 24, "frames": 27, "columns": 9,
+ "tags": [{"name": "plain", "from": 0, "to": 5}, {"name": "striped_h", "from": 6, "to": 11}, {"name": "striped_v", "from": 12, "to": 17}, {"name": "wrapped", "from": 18, "to": 23}, {"name": "bomb", "from": 24, "to": 24}, {"name": "ingredient", "from": 25, "to": 26}]}
