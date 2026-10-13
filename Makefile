@@ -7,6 +7,7 @@
 #   make run          the tape in FBZX
 #   make test         the scripts of tests/ on tools/zxrun.py, 48K and 128K
 #   make check        the tape loaded through the real 48K and 128K ROMs
+#   make manuals      docs/manual_en.pdf, docs/manual_el.pdf (fpdf2)
 #   make release      the tape, the snapshots and the manuals in release/
 #   make clean
 
@@ -16,7 +17,7 @@ PYTHON ?= python3
 FBZX   ?= fbzx
 B      := build
 
-.PHONY: all run test check release clean
+.PHONY: all run test check manuals release clean
 
 all: $(B)/sugar.tap $(B)/sugar48.z80 $(B)/sugar128.z80
 
@@ -78,6 +79,12 @@ check: $(B)/sugar.tap
 		if [ $$r = 2 ]; then echo "    skipped (no emulator or ROM)"; \
 		elif [ $$r != 0 ]; then exit 1; fi; done
 
+# The manuals as A5 booklets (fpdf2); the PDFs are in git.
+manuals: docs/manual_en.pdf docs/manual_el.pdf
+
+docs/manual_%.pdf: docs/manual_%.md $(wildcard docs/screenshots/*.png) tools/mkmanual.py
+	$(PYTHON) tools/mkmanual.py $< $@
+
 RELEASE := $(B)/sugar.tap $(B)/sugar.tzx $(B)/sugar48.z80 $(B)/sugar128.z80
 
 release: all
@@ -85,7 +92,7 @@ release: all
 	mkdir -p release
 	cp $(RELEASE) release/
 	cp docs/manual_en.md docs/manual_el.md release/
-	-cp docs/manual_en.pdf docs/manual_el.pdf release/ 2>/dev/null
+	cp docs/manual_en.pdf docs/manual_el.pdf release/
 	cd release && sha256sum * > SHA256SUMS
 	ls -l release
 

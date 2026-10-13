@@ -10,7 +10,7 @@ tape are new.
 | ![Menu](docs/screenshots/menu.png) | ![Level 17](docs/screenshots/level17.png) |
 | ![A striped candy fires](docs/screenshots/beam.png) | ![Scores](docs/screenshots/scores.png) |
 
-**Player's manual:** [English](docs/manual_en.md) · [Ελληνικά](docs/manual_el.md)
+**Player's manual:** [English](docs/manual_en.md) ([PDF](docs/manual_en.pdf)) · [Ελληνικά](docs/manual_el.md) ([PDF](docs/manual_el.pdf))
 
 ## Features
 
@@ -76,6 +76,12 @@ make check
 ```
 
 loads the tape through the real 48K and 128K ROMs and checks the code landed, took IM 2 and counts its frames.
+
+```bash
+make manuals
+```
+
+lays the manuals out as A5 booklets (`docs/manual_*.pdf`, needs fpdf2).
 
 ```bash
 make release
