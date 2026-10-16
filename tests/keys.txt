@@ -1,0 +1,36 @@
+; Τα βελάκια του εξομοιωτή (CAPS SHIFT + 5-8): ο δείκτης κινείται, και το SPACE
+; με ένα βελάκι πατημένο είναι επιλογή, όχι BREAK. Το BREAK θέλει CAPS SHIFT +
+; SPACE χωρίς βελάκι, κρατημένα 3 καρέ.
+run 1
+until state 0 fire 100     ; από το μενού: PLAY
+run 20
+poke cursor 27
+run 1 cright
+run 1
+expect cursor 28
+run 1 cdown
+run 1
+expect cursor 36
+run 1 cleft
+run 1
+expect cursor 35
+run 1 cup
+run 1
+expect cursor 27
+; SPACE με το → ακόμα πατημένο: επιλογή, και ο δείκτης πάει δεξιά
+run 1 cright
+run 1 cright+fire
+run 2
+expect state 0
+expect sel 28
+run 1 fire                 ; ξανά: η επιλογή ακυρώνεται
+run 2
+expect sel #FF
+; BREAK για ένα καρέ: τίποτα
+run 1 esc
+run 3
+expect state 0
+; BREAK κρατημένο: το μενού
+run 3 esc
+run 3
+expect state 9

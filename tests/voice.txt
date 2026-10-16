@@ -30,6 +30,6 @@ expect speaking 0
 until state 7 - 900
 
 ; BREAK: πίσω στο μενού
-run 1 esc
+run 3 esc
 run 3
 expect state 9

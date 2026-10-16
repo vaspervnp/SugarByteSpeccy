@@ -116,18 +116,37 @@ read_matrix:
 ;
 ;   QAOP, 6789 0 (Sinclair), τα βελάκια (CAPS SHIFT + 5678), Kempston
 ;   SPACE, ENTER, 0, fire: επιλογή      M: μουσική      BREAK: πίσω / κωδικός
+;   (BREAK = CAPS SHIFT + SPACE κρατημένα BREAK_HOLD καρέ, χωρίς βελάκι)
+BREAK_HOLD      equ 3
 read_input:
         call read_matrix
         ld c,0
+        ld d,0                  ; D = 1 αν κρατιέται σκέτο BREAK (το map_bits
+                                ; πειράζει το E)
         ld a,(keymap+0)         ; CAPS SHIFT;
         and 1
         jr z,.nocaps
+        ld a,(keymap+3)         ; ... με 5, 6, 7 ή 8 είναι βελάκι (οι εξομοιωτές
+        and %10000              ; στέλνουν έτσι τα βελάκια του PC): το SPACE
+        ld b,a                  ; μένει επιλογή
+        ld a,(keymap+4)
+        and %11100
+        or b
+        jr nz,.cursor
         ld a,(keymap+7)         ; ... και SPACE: BREAK, όχι επιλογή
         and 1
         jr z,.cursor
-        ld c,J_ESC
         ld hl,keymap+7
         res 0,(hl)
+        inc d
+        ld hl,break_cnt         ; μετράει μόνο αφού κρατηθεί BREAK_HOLD καρέ:
+        ld a,(hl)               ; ένα βελάκι που αφήνεται ένα καρέ πριν από το
+        inc a                   ; CAPS SHIFT του δεν γίνεται BREAK
+        jr z,.cursor
+        ld (hl),a
+        cp BREAK_HOLD
+        jr nz,.cursor
+        ld c,J_ESC
 .cursor ld a,(keymap+4)         ; τα βελάκια: 6 κάτω, 7 πάνω, 8 δεξιά (και το 5
         ld b,a                  ; αριστερά πιο κάτω): όχι Sinclair
         ld hl,cursor_map
@@ -139,7 +158,11 @@ read_input:
         ld a,(keymap+4)
         and b
         ld (keymap+4),a
-.nocaps ld hl,input_map
+.nocaps ld a,d                  ; όχι BREAK: ο μετρητής από την αρχή
+        or a
+        jr nz,.map
+        ld (break_cnt),a
+.map    ld hl,input_map
 .key    ld a,(hl)
         cp #FF
         jr z,.kemp

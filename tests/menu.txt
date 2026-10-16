@@ -52,7 +52,7 @@ run 1 fire
 run 1
 expect state 8
 expect cur_level 0
-run 1 esc
+run 3 esc
 run 1
 expect state 9
 
@@ -101,7 +101,7 @@ run 2
 expect state 0
 expect moves #18
 shot level3
-run 1 esc
+run 3 esc
 run 3
 expect state 9
 
@@ -140,6 +140,6 @@ expect state 0
 expect moves #18
 expect lv_star1+1 #95
 shot level3_medium
-run 1 esc
+run 3 esc
 run 3
 expect state 9

@@ -92,6 +92,7 @@ cur_level       defs 1          ; η πίστα, από 0
 menu_sel        defs 1          ; η επιλογή του μενού
 keymap          defs 8          ; οι 8 μισές γραμμές του πληκτρολογίου (1 = πατημένο)
 kempston_on     defs 1
+break_cnt       defs 1          ; καρέ που κρατιέται το BREAK
 text_attr       defs 1          ; το attribute που παίρνουν τα γράμματα
 txt_row         defs 1          ; η γραμμή χαρακτήρων του κειμένου
 txt_tall        defs 1          ; 1 = γράμματα 8x16
