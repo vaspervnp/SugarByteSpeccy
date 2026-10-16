@@ -103,7 +103,7 @@ blit_h          defs 1
 anim_t          defs 1          ; καρέ, για τα χρώματα του τίτλου και τις ρίγες
 title_rot       defs 1          ; ο κύκλος των χρωμάτων του τίτλου, 0-5
 border_col      defs 1          ; το χρώμα του περιθωρίου (και το byte του #FE)
-best            defs 4*MAX_LEVELS      ; ανά πίστα: πόντοι BCD (3), αστέρια (1)
+difficulty      defs 1          ; 0 EASY, 1 MEDIUM, 2 HARD (src/menu.asm)
 
 ; Ο ήχος: η διακοπή τα πειράζει.
 snd_start

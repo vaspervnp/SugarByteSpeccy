@@ -1,0 +1,930 @@
+# MEDIUM: οι πίστες του levels.txt με πιο δύσκολους στόχους (tools/mkdifficulty.py,
+# μετά tools/leveltune.py --difficulty medium). Ένα υλικό παραπάνω, γλάσο
+# ενός στρώματος -> δύο, και λιγότερες νίκες του ρομπότ: 85% -> 40%.
+
+
+level 1
+goal score
+moves 20
+colours 4
+stars 35000 42500 48500
+cells
+........
+........
+........
+........
+........
+........
+........
+........
+
+level 2
+goal score
+moves 18
+colours 4
+stars 28500 34500 41500
+cells
+o......o
+........
+........
+........
+........
+........
+........
+o......o
+
+level 3
+goal score
+moves 18
+colours 4
+stars 19500 24000 28500
+cells
+oo....oo
+o......o
+........
+........
+........
+........
+o......o
+oo....oo
+
+level 4
+goal score
+moves 16
+colours 4
+stars 17000 23000 27500
+cells
+........
+........
+........
+........
+........
+........
+...oo...
+..oooo..
+
+level 5
+goal jelly
+moves 11
+colours 5
+stars 6000 8500 12500
+cells
+........
+........
+..jjjj..
+..jjjj..
+..jjjj..
+..jjjj..
+........
+........
+
+level 6
+goal jelly
+moves 30
+colours 5
+stars 9000 13500 20000
+cells
+........
+........
+........
+........
+........
+........
+jjjjjjjj
+jjjjjjjj
+
+level 7
+goal jelly
+moves 17
+colours 5
+stars 10000 13000 18000
+cells
+........
+.jjjjjj.
+.j....j.
+.j.JJ.j.
+.j.JJ.j.
+.j....j.
+.jjjjjj.
+........
+
+level 8
+goal jelly
+moves 31
+colours 5
+stars 14000 18500 24000
+cells
+j......j
+.j....j.
+..J..J..
+...JJ...
+...JJ...
+..J..J..
+.j....j.
+j......j
+
+level 9
+goal jelly
+moves 18
+colours 5
+stars 10000 13000 16000
+cells
+oo....oo
+o.jjjj.o
+.jjjjjj.
+.jjJJjj.
+.jjJJjj.
+.jjjjjj.
+o.jjjj.o
+oo....oo
+
+level 10
+goal jelly
+moves 32
+colours 5
+stars 21500 26000 33000
+cells
+jjjjjjjj
+jjjjjjjj
+jjjjjjjj
+jjjjjjjj
+jjjjjjjj
+jjjjjjjj
+jjjjjjjj
+jjjjjjjj
+
+level 11
+goal score
+moves 20
+colours 5
+stars 7500 11000 13000
+cells
+........
+........
+........
+........
+........
+........
+........
+33333333
+
+level 12
+goal jelly
+moves 14
+colours 5
+stars 5500 7500 11000
+cells
+........
+........
+........
+........
+..jjjj..
+..jjjj..
+22jjjj22
+33333333
+
+level 13
+goal jelly
+moves 15
+colours 5
+stars 6500 8500 13500
+cells
+........
+........
+jjjjjjjj
+jjjjjjjj
+........
+........
+3......3
+33....33
+
+level 14
+goal score
+moves 22
+colours 5
+stars 7500 10500 12500
+cells
+........
+........
+........
+........
+2......2
+22....22
+322..223
+33322333
+
+level 15
+goal ingredients
+moves 20
+colours 5
+ingredients 2
+stars 10000 13000 20000
+cells
+........
+........
+........
+........
+........
+........
+........
+........
+
+level 16
+goal ingredients
+moves 40
+colours 5
+ingredients 3
+stars 17000 22500 29000
+cells
+o......o
+........
+........
+........
+........
+........
+........
+........
+
+level 17
+goal jelly+ingredients
+moves 40
+colours 5
+ingredients 3
+stars 22000 27500 34500
+cells
+........
+........
+........
+........
+........
+jjjjjjjj
+jjjjjjjj
+jjjjjjjj
+
+level 18
+goal score
+moves 25
+colours 6
+stars 4500 7000 8000
+cells
+........
+........
+........
+........
+........
+........
+c......c
+cc....cc
+
+level 19
+goal jelly
+moves 10
+colours 5
+stars 6000 8000 12000
+cells
+........
+........
+..jjjj..
+..jjjj..
+..jjjj..
+l.jjjj.l
+ll....ll
+lll..lll
+
+level 20
+goal jelly+ingredients
+moves 40
+colours 5
+ingredients 3
+stars 22500 29000 38500
+cells
+........
+.jjjjjj.
+.jjjjjj.
+.jjjjjj.
+.jjjjjj.
+........
+l..cc..l
+3.2222.3
+
+# --- 21-30: τρύπες στη μέση — τα candies γλιστράνε διαγώνια γύρω τους -----
+
+level 21
+goal score
+moves 20
+colours 5
+stars 5000 8500 10000
+cells
+........
+........
+........
+...oo...
+...oo...
+........
+........
+........
+
+level 22
+goal jelly
+moves 13
+colours 5
+stars 6500 8500 12000
+cells
+........
+........
+.o....o.
+.o....o.
+.jjjjjj.
+.jjjjjj.
+.jjjjjj.
+........
+
+level 23
+goal score
+moves 20
+colours 5
+stars 6000 8500 10000
+cells
+........
+.oo..oo.
+........
+........
+........
+........
+.oo..oo.
+........
+
+level 24
+goal jelly
+moves 10
+colours 5
+stars 4500 6500 9000
+cells
+........
+...oo...
+..o..o..
+.o.jj.o.
+o.jjjj.o
+..jjjj..
+..jjjj..
+...jj...
+
+level 25
+goal ingredients
+moves 38
+colours 5
+ingredients 3
+stars 16000 22000 27500
+cells
+........
+........
+........
+........
+........
+........
+........
+oo.oo.oo
+
+level 26
+goal score
+moves 22
+colours 5
+stars 5500 8500 10000
+cells
+........
+........
+..2222..
+..2oo2..
+..2oo2..
+..2222..
+........
+........
+
+level 27
+goal jelly
+moves 37
+colours 5
+stars 8000 11000 14000
+cells
+jj....jj
+jj.oo.jj
+...oo...
+........
+........
+...oo...
+jj.oo.jj
+jj....jj
+
+level 28
+goal ingredients
+moves 37
+colours 5
+ingredients 3
+stars 15000 20500 27000
+cells
+........
+........
+...oo...
+........
+........
+.2....2.
+.2....2.
+.2....2.
+
+level 29
+goal jelly
+moves 13
+colours 5
+stars 5000 7000 10500
+cells
+........
+.o.oo.o.
+........
+jjjjjjjj
+jjjjjjjj
+........
+.o.oo.o.
+........
+
+level 30
+goal jelly+ingredients
+moves 39
+colours 5
+ingredients 3
+stars 21000 26000 35500
+cells
+........
+........
+o......o
+o......o
+jjjjjjjj
+jjjjjjjj
+jjjjjjjj
+jjj..jjj
+
+# --- 31-40: εμπόδια στη μέση, σοκολάτα και γλυκόριζα, 6 χρώματα ------------
+
+level 31
+goal score
+moves 22
+colours 6
+stars 3500 6000 7000
+cells
+........
+........
+........
+33333333
+........
+........
+........
+........
+
+level 32
+goal jelly
+moves 10
+colours 5
+stars 5000 7500 11500
+cells
+........
+...cc...
+........
+.jjjjjj.
+.jjjjjj.
+........
+...cc...
+........
+
+level 33
+goal ingredients
+moves 34
+colours 5
+ingredients 3
+stars 15500 21000 30000
+cells
+........
+........
+...ll...
+..l..l..
+.l....l.
+........
+........
+........
+
+level 34
+goal jelly
+moves 40
+colours 5
+stars 11500 15000 19500
+cells
+jjj..jjj
+j.o..o.j
+j......j
+...22...
+...22...
+j......j
+j.o..o.j
+jjj..jjj
+
+level 35
+goal score
+moves 24
+colours 5
+stars 7000 9000 10500
+cells
+........
+........
+o..cc..o
+oo....oo
+ooo..ooo
+oo....oo
+o......o
+........
+
+level 36
+goal jelly
+moves 15
+colours 5
+stars 5000 7000 9000
+cells
+........
+..2222..
+..2jj2..
+..2jj2..
+..2jj2..
+..2jj2..
+..2222..
+........
+
+level 37
+goal ingredients
+moves 38
+colours 5
+ingredients 3
+stars 15500 21500 26000
+cells
+........
+........
+........
+........
+...33...
+...33...
+o......o
+oo.oo.oo
+
+level 38
+goal jelly
+moves 36
+colours 5
+stars 16500 20500 28000
+cells
+jjjjjjjj
+jo.jj.oj
+jjjjjjjj
+...ll...
+...ll...
+jjjjjjjj
+jo.jj.oj
+jjjjjjjj
+
+level 39
+goal jelly+ingredients
+moves 32
+colours 5
+ingredients 3
+stars 18500 26000 31500
+cells
+........
+........
+..c..c..
+........
+.jjjjjj.
+.jjjjjj.
+.jjjjjj.
+.jj..jj.
+
+level 40
+goal score
+moves 22
+colours 5
+stars 7500 10000 12000
+cells
+oo....oo
+o......o
+...22...
+..2222..
+..2222..
+...22...
+o......o
+oo....oo
+
+# --- 41-50: όλα μαζί -------------------------------------------------------
+
+level 41
+goal jelly
+moves 34
+colours 5
+stars 11500 15000 20000
+cells
+.J....J.
+JJ....JJ
+........
+...oo...
+...oo...
+........
+JJ....JJ
+.J....J.
+
+level 42
+goal ingredients
+moves 40
+colours 5
+ingredients 3
+stars 10000 12500 16000
+cells
+........
+.o....o.
+..o..o..
+........
+........
+..o..o..
+.o....o.
+........
+
+level 43
+goal jelly
+moves 16
+colours 5
+stars 12000 15000 19000
+cells
+...jj...
+..jjjj..
+.jjjjjj.
+jjjccjjj
+jjjccjjj
+.jjjjjj.
+..jjjj..
+...jj...
+
+level 44
+goal score
+moves 24
+colours 6
+stars 6000 8500 10000
+cells
+........
+.l.ll.l.
+........
+.3.33.3.
+........
+.l.ll.l.
+........
+........
+
+level 45
+goal jelly+ingredients
+moves 33
+colours 5
+ingredients 3
+stars 17500 21000 27000
+cells
+........
+........
+o..oo..o
+........
+jjjjjjjj
+jjj..jjj
+jj....jj
+j......j
+
+level 46
+goal jelly
+moves 36
+colours 5
+stars 10500 13500 17500
+cells
+jjjjjjjj
+j......j
+j.2222.j
+j.2oo2.j
+j.2oo2.j
+j.2222.j
+j......j
+jjjjjjjj
+
+level 47
+goal ingredients
+moves 34
+colours 5
+ingredients 3
+stars 16000 20500 28500
+cells
+........
+........
+..cccc..
+........
+........
+........
+........
+...oo...
+
+level 48
+goal jelly
+moves 37
+colours 5
+stars 9000 11500 15500
+cells
+o.jjjj.o
+.o.jj.o.
+j.o..o.j
+jj....jj
+jj....jj
+j.o..o.j
+.o.jj.o.
+o.jjjj.o
+
+level 49
+goal score
+moves 26
+colours 6
+stars 6000 8500 9500
+cells
+........
+........
+...cc...
+..3333..
+.l....l.
+........
+........
+........
+
+level 50
+goal jelly+ingredients
+moves 40
+colours 5
+ingredients 4
+stars 26500 31500 40500
+cells
+........
+.o....o.
+..2222..
+jjjjjjjj
+jjJJJJjj
+jjJJJJjj
+jjjjjjjj
+o......o
+
+# --- 51-60: το τέλος ---------------------------------------------------------
+
+level 51
+goal jelly
+moves 37
+colours 5
+stars 16500 21000 28000
+cells
+jjjjjjjj
+jjjjjjjj
+oo....oo
+o......o
+........
+o......o
+jjjjjjjj
+jjjjjjjj
+
+level 52
+goal ingredients
+moves 39
+colours 5
+ingredients 3
+stars 16500 22000 27500
+cells
+........
+.cc..cc.
+........
+........
+...ll...
+........
+........
+o.o..o.o
+
+level 53
+goal jelly
+moves 30
+colours 5
+stars 23500 28500 34000
+cells
+J.J..J.J
+.J.JJ.J.
+J.J..J.J
+.J.JJ.J.
+J.J..J.J
+.J.JJ.J.
+J.J..J.J
+.J.JJ.J.
+
+level 54
+goal score
+moves 26
+colours 5
+stars 9000 11500 13500
+cells
+oo....oo
+o.3333.o
+..3333..
+........
+........
+..cccc..
+o......o
+oo....oo
+
+level 55
+goal jelly+ingredients
+moves 29
+colours 5
+ingredients 3
+stars 16000 19000 26000
+cells
+...oo...
+........
+.l.jj.l.
+.ljjjjl.
+.ljjjjl.
+.l.jj.l.
+........
+oo....oo
+
+level 56
+goal jelly
+moves 34
+colours 5
+stars 8000 9000 12000
+cells
+jjj..jjj
+jj.oo.jj
+j.3333.j
+..3oo3..
+..3oo3..
+j.3333.j
+jj.oo.jj
+jjj..jjj
+
+level 57
+goal ingredients
+moves 34
+colours 5
+ingredients 3
+stars 10000 13000 18000
+cells
+........
+........
+..o..o..
+..o..o..
+........
+.c....c.
+........
+oo.oo.oo
+
+level 58
+goal jelly
+moves 36
+colours 5
+stars 18500 23000 29500
+cells
+jjjjjjjj
+jo2jj2oj
+j2cjjc2j
+jjjjjjjj
+jjjjjjjj
+j2cjjc2j
+jo2jj2oj
+jjjjjjjj
+
+level 59
+goal score
+moves 28
+colours 5
+stars 3500 5000 5500
+cells
+........
+...oo...
+..o33o..
+.o3cc3o.
+.o3cc3o.
+..o33o..
+...oo...
+........
+
+level 60
+goal jelly+ingredients
+moves 40
+colours 5
+ingredients 3
+stars 16000 19000 26000
+cells
+o......o
+.jjjjjj.
+.j2222j.
+.j2cc2j.
+.j2cc2j.
+.j2222j.
+.jjjjjj.
+o..oo..o

@@ -1,27 +1,31 @@
 ; menu.asm — το μενού, όπως το mockup_menu του CPC
 ;
-; Τίτλος, κολόνες από ζαχαρωτό δεξιά-αριστερά και πόδι (draw_frame), τέσσερα
+; Τίτλος, κολόνες από ζαχαρωτό δεξιά-αριστερά και πόδι (draw_frame), πέντε
 ; πιάτα, ο δείκτης αριστερά από το επιλεγμένο, μια σειρά από candies από κάτω.
 ;
 ;   PLAY       η πίστα cur_level από την αρχή
 ;   LEVEL NN   SPACE: «CODE 0000» — ←→ ψηφίο, ↑↓ τιμή, SPACE δέχεται, BREAK ακυρώνει
+;   EASY       SPACE (ή ←→): η δυσκολία, EASY / MEDIUM / HARD — οι ίδιες πίστες με
+;              πιο δύσκολους στόχους (levels/levels_medium.txt, levels_hard.txt)
 ;   SOUND ON   SPACE: μουσική ναι/όχι
-;   SCORES     οι καλύτεροι πόντοι και τα αστέρια κάθε πίστας
+;   SCORES     οι καλύτεροι πόντοι και τα αστέρια κάθε πίστας, στη δυσκολία αυτή
 
-MENU_ITEMS      equ 4
+MENU_ITEMS      equ 5
 MENU_ROW0       equ 4               ; γραμμή του πρώτου πιάτου
-MENU_STEP       equ 4
+MENU_STEP       equ 3               ; τα πιάτα έχουν δικό τους περιθώριο πάνω-κάτω
 MENU_TILES      equ 5               ; πιάτο: αριστερό, 3 μέσης, δεξί
 MENU_TILE_W     equ 4
 MENU_COL        equ 8
 MENU_PLATE_W    equ MENU_TILES*MENU_TILE_W
 MENU_PTR_COL    equ 3
-MENU_CANDY_ROW  equ MENU_ROW0+MENU_ITEMS*MENU_STEP-1
+MENU_CANDY_ROW  equ MENU_ROW0+MENU_ITEMS*MENU_STEP
 MENU_CREDIT_ROW equ 22
+        assert MENU_CANDY_ROW+3 <= MENU_CREDIT_ROW
 MI_PLAY         equ 0
 MI_LEVELS       equ 1
-MI_SOUND        equ 2
-MI_SCORES       equ 3
+MI_MODE         equ 2
+MI_SOUND        equ 3
+MI_SCORES       equ 4
 A_TITLE         equ BRIGHT+BLACK*PAPER+WHITE
 
 ; Η εκκίνηση: όλες οι μεταβλητές (και η μόνιμη πρόοδος) στο μηδέν, και το μενού.
@@ -31,16 +35,16 @@ menu_start:
         ld bc,vars_end-BOARD_PAGE-1
         ld (hl),0
         ldir
+        ld hl,best
+        ld de,best+1
+        ld bc,best_end-best-1
+        ld (hl),0
+        ldir
         xor a
         ld (cur_level),a
         ld (menu_sel),a
         ld (lift),a
-        ld hl,best
-        ld b,4*MAX_LEVELS&#FF
-.best   ld (hl),a
-        inc hl
-        djnz .best
-        assert 4*MAX_LEVELS == 256
+        ld (difficulty),a       ; EASY
         ld (clip_row),a
         ld a,r                  ; ό,τι να 'ναι, αρκεί να μην είναι 0
         or 1
@@ -200,11 +204,12 @@ draw_plate:
 
 ; A = επιλογή -> A = η γραμμή του πιάτου της
 menu_item_row:
+        ld b,a
         add a,a
-        add a,a
+        add a,b
         add a,MENU_ROW0
         ret
-        assert MENU_STEP == 4
+        assert MENU_STEP == 3
 
 ; A = επιλογή -> HL = η ετικέτα της (στο menu_buf αν αλλάζει)
 menu_label:
@@ -214,9 +219,14 @@ menu_label:
         dec a
         jr z,.levels
         dec a
+        jr z,.mode
+        dec a
         jr z,.sound
         ld hl,txt_scores
         ret
+.mode   ld a,(difficulty)       ; «EASY», «MEDIUM», «HARD»
+        ld hl,txt_modes
+        jp ptr_de_hl
 .sound  ld hl,txt_sound_on
         ld a,(mus_on)
         or a
@@ -288,6 +298,28 @@ txt_code:       db "CODE "
 txt_sound_on:   db "SOUND ON",0
 txt_sound_off:  db "SOUND OFF",0
 txt_scores:     db "SCORES",0
+txt_easy:       db "EASY",0
+txt_medium:     db "MEDIUM",0
+txt_hard:       db "HARD",0
+txt_modes:      dw txt_easy,txt_medium,txt_hard
+        assert NDIFFICULTIES == 3
+
+; HL = πίνακας από words, A = δείκτης -> HL = το word. Δεν πειράζει BC.
+ptr_de_hl:
+        call ptr_lookup
+        ex de,hl
+        ret
+
+; A = πίστα -> HL = οι καλύτεροί της πόντοι στη δυσκολία που παίζεται
+; (best: μία σελίδα ανά δυσκολία). Δεν πειράζει BC, DE.
+best_ptr:
+        add a,a
+        add a,a
+        ld l,a
+        ld a,(difficulty)
+        add a,best>>8
+        ld h,a
+        ret
 
 ; Ο δείκτης δίπλα στο επιλεγμένο, στη φάση του (οι ρίγες «τρέχουν»).
 draw_pointer:
@@ -326,6 +358,18 @@ st_menu:
         ld a,MI_SOUND
         call nz,draw_plate
         call get_dir
+        ld b,a
+        and J_LEFT|J_RIGHT      ; ←→ πάνω στη δυσκολία: την αλλάζουν
+        jr z,.updown
+        ld a,(menu_sel)
+        cp MI_MODE
+        jr nz,.updown
+        ld a,1
+        bit 2,b                 ; J_LEFT
+        jr z,.step
+        ld a,-1
+.step   jp mode_step
+.updown ld a,b
         and J_UP|J_DOWN
         jr z,.fire
         ld b,a
@@ -368,9 +412,29 @@ st_menu:
         jp start_code           ; LEVELS: ο κωδικός
 .notlevels
         dec a
+        jr nz,.notmode
+        ld a,1                  ; MODE: η επόμενη δυσκολία
+        jr mode_step
+.notmode
+        dec a
         jr nz,scores_enter      ; SCORES
         call toggle_music       ; SOUND
         ld a,MI_SOUND
+        jp draw_plate
+
+; A = +1 ή -1: η δυσκολία αλλάζει, κυκλικά, και το πιάτο της ξαναγράφεται.
+mode_step:
+        ld hl,difficulty
+        add a,(hl)
+        jp p,.lo
+        ld a,NDIFFICULTIES-1
+.lo     cp NDIFFICULTIES
+        jr c,.set
+        xor a
+.set    ld (hl),a
+        ld hl,sfx_select
+        call play_sfx
+        ld a,MI_MODE
         jp draw_plate
 
 ; ---------------------------------------------------------------------------
@@ -415,7 +479,14 @@ scores_draw:
         ld a,BRIGHT+BLACK*PAPER+YELLOW
         ld (text_attr),a
         ld hl,menu_buf
-        ld c,(SCR_COLS-10)/2
+        ld c,(SCR_COLS-17)/2
+        call draw_text
+        inc c                   ; και η δυσκολία: «SCORES 1/3 MEDIUM»
+        ld a,BRIGHT+BLACK*PAPER+WHITE
+        ld (text_attr),a
+        ld a,(difficulty)
+        ld hl,txt_modes
+        call ptr_de_hl
         call draw_text
         ld a,19                 ; πώς φεύγεις
         ld (txt_row),a
@@ -451,10 +522,7 @@ scores_draw:
         ld a,BRIGHT+BLACK*PAPER+CYAN
         ld (text_attr),a
         ld a,(menu_tmp)         ; οι πόντοι
-        add a,a
-        add a,a
-        ld hl,best
-        call add_hl_a
+        call best_ptr
         ld b,3
         call draw_bcd           ; HL μένει στα αστέρια
         inc c
@@ -521,10 +589,7 @@ st_scores:
 ; Στη νίκη: οι πόντοι και τα αστέρια της πίστας, αν είναι οι καλύτεροι ώς τώρα.
 record_best:
         ld a,(cur_level)
-        add a,a
-        add a,a
-        ld hl,best
-        call add_hl_a
+        call best_ptr
         push hl
         ld de,score             ; BCD, MSB πρώτο: σύγκριση byte-byte
         ld b,3

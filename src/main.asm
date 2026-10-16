@@ -47,7 +47,15 @@ start:
         include "game.asm"
         include "hud.asm"
 code_end:
-        assert code_end <= IM2_JUMP
+
+; Πάνω από τον κώδικα, όχι στην κασέτα: οι καλύτεροι πόντοι, μία σελίδα ανά
+; δυσκολία (best_ptr).
+        nocode
+        align 256
+best            defs 256*NDIFFICULTIES  ; ανά πίστα: πόντοι BCD (3), αστέρια (1)
+best_end
+        code
+        assert best_end <= IM2_JUMP && 4*MAX_LEVELS == 256
 
         save "build/sugar.bin",bin_start,code_end-bin_start
 LOAD_ADDR       equ start

@@ -31,8 +31,11 @@ $(B):
 $(B)/gfx.asm: tools/zxgfx.py $(wildcard assets/sheets/*) | $(B)
 	$(PYTHON) tools/zxgfx.py $@ --preview $(B)/gfx.png
 
-$(B)/levels.asm: levels/levels.txt tools/levels.py | $(B)
-	$(PYTHON) tools/levels.py $< $@
+# The levels: EASY, MEDIUM, HARD (tools/mkdifficulty.py made the last two from
+# the first, tools/leveltune.py --difficulty tuned their moves and stars).
+LEVELS := levels/levels.txt levels/levels_medium.txt levels/levels_hard.txt
+$(B)/levels.asm: $(LEVELS) tools/levels.py | $(B)
+	$(PYTHON) tools/levels.py $(LEVELS) $@
 
 VOICES := sugarbyte sweet delicious crush
 $(B)/voice.bin $(B)/voice.asm &: $(VOICES:%=voice/%.wav) tools/voice.py | $(B)

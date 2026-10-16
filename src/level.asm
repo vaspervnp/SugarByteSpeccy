@@ -1,13 +1,17 @@
 ; level.asm — οι πίστες, οι στόχοι και τα αστέρια (plan.md §11)
 ;
-; Τα δεδομένα είναι στο build/levels.asm, από το levels/levels.txt.
+; Τα δεδομένα είναι στο build/levels.asm, από το levels/levels.txt (EASY),
+; levels_medium.txt και levels_hard.txt: ένας πίνακας ανά δυσκολία.
 
 ; A = πίστα (από 0): κεφαλίδα στις μεταβλητές, κελιά στο cell[]. Οι πίστες δεν
 ; έχουν πίνακα διευθύνσεων: αποκωδικοποιούνται όλες με τη σειρά ώς τη ζητούμενη.
 load_level:
         ld b,a
         inc b
-        ld hl,levels
+        ld a,(difficulty)       ; ο πίνακας της δυσκολίας
+        ld hl,levels_tab
+        call ptr_lookup
+        ex de,hl
 .lv     push bc
         call decode_level
         pop bc

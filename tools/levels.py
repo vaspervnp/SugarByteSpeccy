@@ -17,7 +17,12 @@
 επόμενος + CODE_STEP, σε BCD mod 10.000. Το βήμα είναι πρώτο ως προς το 10,
 άρα κανένας δεν επαναλαμβάνεται· κανένας δεν είναι 0000.
 
-  levels.py levels/levels.txt build/levels.asm
+Με περισσότερα αρχεία, ένας πίνακας για καθένα, μία δυσκολία το καθένα
+(levels/levels.txt EASY, levels_medium.txt MEDIUM, levels_hard.txt HARD):
+levels_tab έχει τη διεύθυνση του καθενός. Οι πίστες είναι ίδιες σε αριθμό, οι
+κωδικοί ίδιοι.
+
+  levels.py levels/levels.txt [levels/levels_medium.txt ...] build/levels.asm
 """
 import sys
 
@@ -146,29 +151,39 @@ def level_codes(n):
 
 
 def main():
-    src, dst = sys.argv[1], sys.argv[2]
-    levels = parse(src)
-    out = [f"; ΠΑΡΑΓΕΤΑΙ από το tools/levels.py ({src}) — μην το πειράζεις.", '',
-           f"NLEVELS         equ {len(levels)}",
+    *srcs, dst = sys.argv[1:]
+    sets = [parse(src) for src in srcs]
+    n = len(sets[0])
+    if any(len(lv) != n for lv in sets):
+        sys.exit("levels.py: οι δυσκολίες θέλουν τον ίδιο αριθμό πιστών")
+    out = [f"; ΠΑΡΑΓΕΤΑΙ από το tools/levels.py ({' '.join(srcs)}) — μην το πειράζεις.", '',
+           f"NLEVELS         equ {n}",
+           f"NDIFFICULTIES   equ {len(sets)}",
            f"CODE_FIRST      equ #{CODE_FIRST:04d}   ; ο κωδικός της πίστας 1, BCD",
            f"CODE_STEP       equ #{CODE_STEP:04d}   ; + αυτό για κάθε επόμενη", '',
            'cell_kinds:             ; cell[] ανά είδος: ' + ' '.join(KINDS),
-           '        db ' + ','.join(f"#{CELLS[k]:02X}" for k in KINDS), '', 'levels:']
-    total = 0
-    for i, lv in enumerate(levels):
-        try:
-            check(lv)
-            data = encode(lv)
-        except ValueError as e:
-            sys.exit(f"level {lv['name']}: {e}")
-        total += len(data)
-        out.append(f"; πίστα {i + 1}: {len(data)} bytes")
-        for k in range(0, len(data), 16):
-            out.append('        db ' + ','.join(f"#{b:02X}" for b in data[k:k + 16]))
+           '        db ' + ','.join(f"#{CELLS[k]:02X}" for k in KINDS), '',
+           'levels_tab:             ; ανά δυσκολία',
+           '        dw ' + ','.join(f"levels_{d}" for d in range(len(sets)))]
+    report = []
+    for d, (src, levels) in enumerate(zip(srcs, sets)):
+        out += ['', f"levels_{d}:              ; {src}"]
+        total = 0
+        for i, lv in enumerate(levels):
+            try:
+                check(lv)
+                data = encode(lv)
+            except ValueError as e:
+                sys.exit(f"{src}: level {lv['name']}: {e}")
+            total += len(data)
+            out.append(f"; πίστα {i + 1}: {len(data)} bytes")
+            for k in range(0, len(data), 16):
+                out.append('        db ' + ','.join(f"#{b:02X}" for b in data[k:k + 16]))
+        report.append(f"{src} {total}")
     out.append('')
-    out.append('; οι κωδικοί: ' + ' '.join(f"{i + 1}={c:04d}" for i, c in enumerate(level_codes(len(levels)))))
+    out.append('; οι κωδικοί: ' + ' '.join(f"{i + 1}={c:04d}" for i, c in enumerate(level_codes(n))))
     open(dst, 'w').write('\n'.join(out) + '\n')
-    print(f"{dst}: {len(levels)} πίστες, {total} bytes")
+    print(f"{dst}: {n} πίστες x {len(sets)}, bytes: " + ', '.join(report))
 
 
 if __name__ == '__main__':

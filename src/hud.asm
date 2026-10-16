@@ -6,6 +6,7 @@
 ;           6      λουκέτο + κωδικός της πίστας
 ;           7      ζαχαρωτό
 ;         8-13     οι στόχοι: εικονίδιο ή candy, «× NN» (ή οι πόντοι-στόχος)
+;          14      EASY / MEDIUM / HARD
 ;          15      LEVEL NN
 ;          16      ζαχαρωτό
 ;         17-18    τα τρία αστέρια
@@ -19,6 +20,7 @@ HUD_CODE_ROW    equ 6
 HUD_CANE2_ROW   equ 7
 HUD_GOAL_ROW    equ 8
 HUD_GOAL_DY     equ 3
+HUD_MODE_ROW    equ 14
 HUD_LEVEL_ROW   equ 15
 HUD_CANE3_ROW   equ 16
 HUD_STARS_ROW   equ 17
@@ -299,7 +301,19 @@ hud_goals_init:
         call draw_candy_at
         pop af
         call hud_times
-.level  ld a,HUD_LEVEL_ROW      ; LEVEL NN
+.level  ld a,HUD_MODE_ROW       ; η δυσκολία, στο κέντρο
+        ld (txt_row),a
+        ld a,A_HUD
+        ld (text_attr),a
+        ld a,(difficulty)
+        ld hl,hud_mode_col
+        call add_hl_a
+        ld c,(hl)
+        ld a,(difficulty)
+        ld hl,txt_modes
+        call ptr_de_hl
+        call draw_text
+        ld a,HUD_LEVEL_ROW      ; LEVEL NN
         ld (txt_row),a
         ld a,A_HUD_TEXT
         ld (text_attr),a
@@ -319,6 +333,8 @@ hud_goals_init:
 
 txt_level:
         db "LEVEL",0
+hud_mode_col:                   ; EASY, MEDIUM, HARD στο κέντρο των 8 στηλών
+        db HUD_COL+2,HUD_COL+1,HUD_COL+2
 
 ; A = γραμμή: «×» δίπλα στο εικονίδιο στόχου
 hud_times:

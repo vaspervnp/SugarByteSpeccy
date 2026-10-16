@@ -3,6 +3,7 @@ run 1
 until state 0 fire 100     ; από το μενού: PLAY
 run 20
 setboard 01234404 23450123 45012345 01234501 23450123 45012345 41054501 00110123
+pokew seed #F087               ; τα candies που μπαίνουν δεν φτιάχνουν τρίτη τριάδα
 run 20
 poke cursor 50
 run 1 fire

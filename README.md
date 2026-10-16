@@ -21,7 +21,8 @@ tape are new.
   combinations of two specials, **jelly**, **icing** (3 layers), **chocolate** that spreads, **licorice**,
   **ingredients** (cherry, nut) to bring down, **holes** in the board with candies sliding diagonally round them,
   chains with a multiplier, a reshuffle when no move is left, a **hint** after 5 seconds, **Sugar Crush** on a win.
-- **60 levels** with 1–3 stars, **level codes** to come back to a level, a **best-scores** table.
+- **60 levels** on **three difficulties** — EASY (the CPC's), MEDIUM and HARD, the same boards with higher
+  targets, fewer moves, more ingredients, double jelly and thicker icing — with 1–3 stars, **level codes** to come back to a level, a **best-scores** table.
 - **Sound**: on a 128K the CPC's tune and effects on the AY, and the **voice** ("Sugar Byte!", "Sweet!",
   "Delicious!", "Sugar Crush!") as 4-bit samples through the AY's volume registers; on a 48K the same tune and
   effects on the **beeper**, in the time each frame leaves free, and the voice as pulse-width samples.
@@ -112,7 +113,7 @@ tools/          zxgfx.py (art), levels.py, voice.py, mktap.py, mkz80.py, mkloads
                 zxrun.py (headless Spectrum for the tests), zxcheck.py (the real ROMs)
 tools/aseprite/ the Lua scripts that draw the art
 assets/         aseprite/ (sources), sheets/ (what the build reads)
-levels/         the 60 levels as text
+levels/         the 60 levels as text: levels.txt (EASY), levels_medium.txt, levels_hard.txt
 voice/          the four phrases (WAV)
 tests/          the scripts of make test
 docs/           manuals, screenshots

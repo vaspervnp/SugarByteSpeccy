@@ -1,19 +1,22 @@
-; Το μενού (assets/preview/mockup_menu.png): PLAY, LEVEL NN, SOUND, SCORES,
-; και οι κωδικοί πίστας. Οι κωδικοί είναι στο τέλος του build/levels.asm: πίστα 3 = 1895.
+; Το μενού: PLAY, LEVEL NN, EASY/MEDIUM/HARD, SOUND, SCORES, οι κωδικοί πίστας
+; και η δυσκολία. Οι κωδικοί είναι στο τέλος του build/levels.asm: πίστα 3 = 1895.
 run 30
 expect state 9
 expect menu_sel 0
 shot menu
 
-; ↓ στο LEVEL, ↓ στο SOUND, SPACE: μουσική όχι
+; ↓ στο LEVEL, ↓ στη δυσκολία, ↓ στο SOUND, SPACE: μουσική όχι
 run 1 down
 run 1
 expect menu_sel 1
 run 1 down
 run 1
+expect menu_sel 2
+run 1 down
+run 1
 run 1 fire
 run 1
-expect menu_sel 2
+expect menu_sel 3
 expect mus_on 0
 run 1 fire
 run 1
@@ -31,6 +34,8 @@ run 2
 expect state 9
 
 ; LEVEL: λάθος κωδικός (0001) μένει στην εισαγωγή, ESC ακυρώνει
+run 1 up
+run 1
 run 1 up
 run 1
 run 1 up
@@ -88,7 +93,7 @@ run 1
 expect state 9
 expect cur_level 2
 
-; PLAY: η πίστα 3· ESC πίσω στο μενού
+; PLAY: η πίστα 3 (EASY)· ESC πίσω στο μενού
 run 1 up
 run 1
 run 1 fire
@@ -96,6 +101,45 @@ run 2
 expect state 0
 expect moves #18
 shot level3
+run 1 esc
+run 3
+expect state 9
+
+; Η δυσκολία: SPACE -> MEDIUM, ← EASY, ← HARD (κυκλικά), → EASY, SPACE -> MEDIUM
+run 1 down
+run 1
+run 1 down
+run 1
+expect menu_sel 2
+expect difficulty 0
+run 1 fire
+run 1
+expect difficulty 1
+run 1 left
+run 1
+expect difficulty 0
+run 1 left
+run 1
+expect difficulty 2
+shot mode_hard
+run 1 right
+run 1
+expect difficulty 0
+run 1 fire
+run 1
+expect difficulty 1
+
+; PLAY: η πίστα 3 στο MEDIUM: οι κινήσεις και ο στόχος του levels_medium.txt
+run 1 up
+run 1
+run 1 up
+run 1
+run 1 fire
+run 2
+expect state 0
+expect moves #18
+expect lv_star1+1 #95
+shot level3_medium
 run 1 esc
 run 3
 expect state 9

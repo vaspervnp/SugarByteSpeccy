@@ -52,6 +52,7 @@ Move the striped pointer **up and down** and choose with **fire**.
 |---|---|
 | **PLAY** | Start the level shown under it. |
 | **LEVEL NN** | Enter a **level code** to jump to a level you've reached before (see *Level codes*). |
+| **EASY / MEDIUM / HARD** | The difficulty: **fire** (or **left** / **right**) changes it. See *Difficulty*. |
 | **SOUND ON / OFF** | Turn the music on or off (`M` does the same at any time). |
 | **SCORES** | Your best score and stars for every level. Twenty levels to a page: **left** and **right** turn the page, **fire** or `BREAK` goes back. |
 
@@ -97,7 +98,7 @@ From top to bottom:
 - **The jar** — your score.
 - **The arrows** — moves left. **The padlock** — this level's code.
 - **The goal** — points to reach, jelly squares left to clear, ingredients left to bring down.
-- **LEVEL NN** — the level you're on.
+- **EASY / MEDIUM / HARD** and **LEVEL NN** — the difficulty and the level you're on.
 - **Three stars** and the **progress bar** — they light up as your score passes each star's target.
 
 ---
@@ -122,6 +123,21 @@ scores. Press **fire** to go on to the next level, with its code shown in the pa
 
 If you run out of moves first, the border flashes. Press **fire** to try the same level again, or `BREAK` for the
 menu.
+
+---
+
+## DIFFICULTY
+
+The same sixty boards, three ways:
+
+| | |
+|---|---|
+| **EASY** | The levels as they always were. |
+| **MEDIUM** | Higher score targets, fewer moves, one more ingredient to bring down, and single-layer icing comes with two layers. |
+| **HARD** | Higher targets and fewer moves still, two more ingredients, **all jelly is double**, and every piece of icing has an extra layer. |
+
+The panel shows the difficulty above **LEVEL NN**. Codes work on every difficulty, and the best scores are kept
+separately for each one — the **SCORES** table shows the difficulty you have chosen.
 
 ---
 
